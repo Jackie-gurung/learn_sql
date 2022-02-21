@@ -1,0 +1,3 @@
+id,distributor_id,publication_id,quantity,order_date,pre_order
+6,1,11,5,2021-01-01,1
+1,1,11,500,2022-01-25,1

@@ -24,7 +24,38 @@
   FROM employee
   JOIN works_with
   ON employee.emp_id = works_with.emp_id
-  WHERE works_with.total_sales > 30000;
+   WHERE works_with.total_sales > 30000;
+  
+  -- nested approach
+  SELECT employee.first_name , employee.last_name
+  FROM employee 
+  WHERE employee.emp_id IN (
+	SELECT works_with.emp_id
+    FROM works_with
+    WHERE works_with.total_sales > 30000
+  );
+  
+  -- find all the clients who are handled by the branch that michel scott manages
+  -- assume you know michel's ID
+  SELECT client_name 
+  FROM client
+  JOIN employee
+  ON employee.branch_id = client.branch_id 
+  WHERE employee.emp_id = 102;
+  
+  
+  
+  -- nested approach 
+  SELECT client.client_name
+  FROM client
+  WHERE client.branch_id = (
+	  SELECT branch.branch_id
+	  FROM branch
+	  WHERE branch.mgr_id = 102
+	  LIMIT 1
+  );
+  
+  
 
  
  
@@ -32,4 +63,4 @@
  INSERT INTO branch VALUES(4,'buffalo', NULL, NULL);
  
  SELECT *
- FROM branch;
+ FROM works_with;
